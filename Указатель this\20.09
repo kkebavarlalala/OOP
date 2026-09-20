@@ -1,0 +1,111 @@
+#include <iostream>
+using namespace std;
+
+class Book
+{
+	const int id;
+	string tittle;
+	const string author;
+	const int pages;
+	const int year;
+	double price;
+public:
+	Book() : id(0), tittle(""), author(""), pages(0), year(0), price(0)
+	{
+
+	}
+	Book(int id, string tittle, string author, int pages, int year, double price) : id(id), tittle(tittle), author(author), pages(pages), year(year), price(price)
+	{
+
+	}
+	void showInfo()
+	{
+		cout << "ID: " << id << endl;
+		cout << "Tittle: " << tittle << endl;
+		cout << "Author: " << author << endl;
+		cout << "Pages: " << pages << endl;
+		cout << "Year: " << year << endl;
+		cout << "Price: $" << price << endl;
+	}
+
+	string getTittle()
+	{
+		return tittle;
+	}
+	void setTittle(string tittle)
+	{
+		this->tittle = tittle;
+	}
+	int getPrice()
+	{
+		return price;
+	}
+	void setPrice(double price)
+	{
+		this->price = price;
+	}
+
+	void ChangePrice(double newPrice)
+	{
+		price = newPrice;
+	}
+
+	void IsModern()
+	{
+		if (year > 2015)
+		{
+			cout << "The book is modern." << endl;
+		}
+		else
+		{
+			cout << "The book is not modern." << endl;
+		}
+	}
+
+	void Discount(double percent)
+	{
+		price -= price * percent / 100;
+	}
+
+	~Book()
+	{
+		cout << "Book deleted." << endl;
+	}
+};
+
+
+int main()
+{
+	Book book1(1, "Harry Potter", "J.K. Rowling", 320, 2001, 25);
+	Book book2(2, "Dune", "Frank Herbert", 412, 1965, 30);
+	Book book3(3, "The Martian", "Andy Weir", 369, 2016, 28);
+
+	cout << "Book 1:" << endl;
+	book1.showInfo();
+
+	cout << endl << "Book 2:" << endl;
+	book2.showInfo();
+
+	cout << endl << "Book 3:" << endl;
+	book3.showInfo();
+
+	cout << endl << "Change price:" << endl;
+	book1.ChangePrice(35);
+	book1.showInfo();
+
+	cout << endl << "Discount:" << endl;
+	book2.Discount(10);
+	book2.showInfo();
+
+	cout << endl << "Modern books:" << endl;
+
+	cout << "Book 1: ";
+	book1.IsModern();
+
+	cout << "Book 2: ";
+	book2.IsModern();
+
+	cout << "Book 3: ";
+	book3.IsModern();
+
+}
