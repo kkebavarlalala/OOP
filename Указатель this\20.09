@@ -27,7 +27,10 @@ public:
 		cout << "Year: " << year << endl;
 		cout << "Price: $" << price << endl;
 	}
-
+	string getAuthor()
+	{
+		return author;
+	}
 	string getTittle()
 	{
 		return tittle;
@@ -36,7 +39,7 @@ public:
 	{
 		this->tittle = tittle;
 	}
-	int getPrice()
+	double getPrice()
 	{
 		return price;
 	}
@@ -109,3 +112,52 @@ int main()
 	book3.IsModern();
 
 }
+
+class Library
+{
+	Book book[10];
+	double count;
+public:
+	Library() : count(0)
+	{
+	}
+	void ShowAll()
+	{
+		for (int i = 0; i < count; i++)
+		{
+			book[i].showInfo();
+			cout << endl;
+		}
+	}
+	void findByTitle(string title)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			if (book[i].getTittle() == title)
+			{
+				book[i].showInfo();
+			}
+		}
+	}
+	void findByAuthor(string author)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			if (book[i].getAuthor() == author)
+			{
+				book[i].showInfo();
+			}
+		}
+
+	}
+	double totalPrice()
+	{
+		double sum = 0;
+
+		for (int i = 0; i < count; i++)
+		{
+			sum += book[i].getPrice();
+		}
+		return sum;
+	}
+ };
