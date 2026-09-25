@@ -1,0 +1,133 @@
+#pragma once
+#include <iostream>
+using namespace std;
+class Reservoir
+{
+	string name;
+	double width;
+	double length;
+	double max_depth;
+
+public:
+	static int count;
+	Reservoir()
+	{
+		count++;
+	}
+	Reservoir(string name, double width, double length, double max_depth)
+	{
+		this->name = name;
+		this->width = width;
+		this->length = length;
+		this->max_depth = max_depth;
+		count++;
+	}
+	double getVolume()
+	{
+		return width * length * max_depth;
+	}
+	double GetArea()
+	{
+		return width * length;
+	}
+
+	void SetName(string name)
+	{
+		this->name = name;
+	}
+	void SetWidth(double width)
+	{
+		this->width = width;
+	}
+	void SetLength(double length)
+	{
+		this->length = length;
+	}
+	void SetMax_Depth(double max_depth)
+	{
+		this->max_depth = max_depth;
+	}
+
+
+	string GetName()
+	{
+		return name;
+	}
+	double Getwidth()
+	{
+		return width;
+	}
+	double Getlength()
+	{
+		return length;
+	}
+	double Getmax_depth()
+	{
+		return max_depth;
+	}
+	static int GetCount()
+	{
+		return count;
+	}
+
+	void PrintInfo()
+	{
+		cout << "Name: " << name << endl
+			<< "Width: " << width << endl
+			<< "Length: " << length << endl
+			<< "Max depth: " << max_depth << endl
+			<< "Area: " << GetArea() << endl
+			<< "Volume: " << getVolume() << endl;
+	}
+
+	bool CompareArea(Reservoir other)
+	{
+		return GetArea() == other.GetArea();
+	}
+};
+
+int Reservoir::count = 0;
+
+
+int main()
+{
+	Reservoir reservoir1;
+	Reservoir reservoir2("Barbara", 5, 6, 2);
+
+	cout << "First reservoir:" << endl;
+	reservoir1.PrintInfo();
+
+	cout << endl;
+
+	cout << "Second reservoir:" << endl;
+	reservoir2.PrintInfo();
+
+	cout << endl;
+
+	reservoir1.SetName("Lake");
+	reservoir1.SetWidth(2);
+	reservoir1.SetLength(3);
+	reservoir1.SetMax_Depth(20);
+
+	cout << "First reservoir after changes:" << endl;
+	reservoir1.PrintInfo();
+
+	cout << endl;
+
+	if (reservoir1.CompareArea(reservoir2))
+	{
+		cout << "The water surface areas are equal." << endl;
+	}
+	else
+	{
+		cout << "The water surface areas are different." << endl;
+	}
+
+	cout << endl;
+
+	cout << "Number of created objects: " << Reservoir::GetCount() << endl;
+
+
+}
+
+
