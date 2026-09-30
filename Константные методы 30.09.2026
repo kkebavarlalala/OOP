@@ -1,0 +1,93 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class CityUA
+{
+    string name; // название города (в коде ошибочный комментарий "население города")
+    int population_city; // население города
+
+    static string language; // государственный язык
+    static string capital; // столица
+    static string president; // президент
+    static int population_country; // население страны
+    static int Count; // количество созданных городов
+public:
+    CityUA()
+    {
+        Count++;
+    }
+    CityUA(string n, int pop)
+    {
+        name = n;
+        population_city = pop;
+        Count++;
+
+    }
+
+    string GetName()const
+    {
+        return name;
+    }
+    int GetPopulation_City()const
+    {
+        return population_city;
+    }
+    void SetName(string n)
+    {
+        name = n;
+    }
+    void SetPopulation_city(int pop)
+    {
+        population_city = pop;
+    }
+    static int GetCount()
+    {
+        return Count;
+    }
+
+    void Init(string n, int a)
+    {
+        name = n;
+        population_city = a;
+    }
+    void Print()const
+    {
+        cout << "City " << name << "Population " << population_city << endl;
+    }
+
+
+
+    // for static objects
+
+    static void PrintData() // вывод всех статических данных
+    {
+        cout << "Language " << language << endl
+            << "Capital " << capital << endl
+            << "President " << president << endl
+            << "Population country " << population_country << endl
+            << "Count " << Count << endl;
+    }
+        
+
+};
+
+string CityUA::language = "Ukrainian";
+string CityUA::capital = "Kyiv";
+string CityUA::president = "Volodymyr Zelenski";
+int CityUA::population_country = 45000000;
+int CityUA::Count = 0;
+
+int main()
+{
+    CityUA city1("Odesa", 1000000);
+    CityUA city2;
+
+    city1.Print();
+    city2.Print();
+
+    cout << endl;
+    CityUA::PrintData();
+
+}
