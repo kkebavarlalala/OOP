@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+class Date
+{
+	int day;
+	int month;
+	int year;
+public:
+	Date(){}
+	Date(int day, int month, int year)
+	{
+		this->day = day;
+		this->month = month;
+		this->year = year;
+	}
+
+	int getDay()
+	{
+		return this->day;
+	}
+	int getMonth()
+	{
+		return this->month;
+	}
+	int getYear()
+	{
+		return this->year;
+	}
+	void setDay(int day)
+	{
+		this->day = day;
+	}
+	void setMonth(int month)
+	{
+		this->month = month;
+	}
+	void setYear(int year)
+	{
+		this->year = year;
+	}
+	void PrintInfo()
+	{
+		cout << "Day " << day << endl << "Month " << month << endl << "Year " << year << endl;
+	}
+
+	int operator-(Date& date)
+	{
+		return (year - date.year) * 360 + (month - date.month) * 30 + (day - date.day);
+	}
+	Date operator+(int days)
+	{
+		Date date(day, month, year);
+		date.day = date.day + day;
+
+		if (date.day > 30)
+		{
+			date.day -= 30;
+			date.month++;
+		}
+		return date;
+	}
+
+};
+
+int main()
+{
+	Date date1(12, 7, 2010);
+	Date date2(15, 7, 2010);
+
+	cout << "Date 1" << endl;
+	date1.PrintInfo();
+
+	cout << "Date 2" << endl;
+	date2.PrintInfo();
+
+	cout << "Difference: " << endl;
+	cout << date2 - date1 << " days" << endl;
+
+}
