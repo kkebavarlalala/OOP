@@ -1,0 +1,172 @@
+#include <iostream>
+using namespace std;
+
+class Data
+{
+ int day;
+ int month;
+ int year;
+
+public:
+ Data() {}
+
+ Data(int day, int month, int year)
+ {
+  this->day = day;
+  this->month = month;
+  this->year = year;
+ }
+
+ bool isLeapYear(int y) const
+ {
+  return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+ }
+
+ int getDay()
+ {
+  return this->day;
+ }
+ int getMonth()
+ {
+  return this->month;
+ }
+ int getYear()
+ {
+  return this->year;
+ }
+ void setDay(int day)
+ {
+  this->day = day;
+ }
+ void setMonth(int month)
+ {
+  this->month = month;
+ }
+ void setYear(int year)
+ {
+  this->year = year;
+ }
+
+ void PrintInfo()
+ {
+  cout << "Day: " << day << ", Month: " << month << ", Year: " << year << endl;
+ }
+
+ Data& operator++()
+ {
+  day++;
+  return *this;
+ }
+
+ Data operator++(int)
+ {
+  Data temp = *this;
+  day++;
+  return temp;
+ }
+
+ Data& operator--()
+ {
+  day--;
+  return *this;
+ }
+
+ Data operator--(int)
+ {
+  Data temp = *this;
+  day--;
+  return temp;
+ }
+
+ Data operator+(int days)
+ {
+  return Data(day + days, month, year);
+ }
+
+ Data operator-(int days)
+ {
+  return Data(day - days, month, year);
+ }
+
+ int operator-(Data& date)
+ {
+  return (year - date.year) * 360 + (month - date.month) * 30 + (day - date.day);
+ }
+
+ Data& operator+=(int days)
+ {
+  day += days;
+  return *this;
+ }
+
+ Data& operator-=(int days)
+ {
+  day -= days;
+  return *this;
+ }
+
+ bool operator==(Data& day1)
+ {
+  return (year == day1.year && month == day1.month && day == day1.day);
+ }
+
+ bool operator!=(Data& day1)
+ {
+  return !(*this == day1);
+ }
+
+ bool operator<(Data& day1)
+ {
+  int d1 = year * 360 + month * 30 + day;
+  int d2 = day1.year * 360 + day1.month * 30 + day1.day;
+  return d1 < d2;
+ }
+
+ bool operator>(Data& day1)
+ {
+  int d1 = year * 360 + month * 30 + day;
+  int d2 = day1.year * 360 + day1.month * 30 + day1.day;
+  return d1 > d2;
+ }
+
+ bool operator<=(Data& day1)
+ {
+  return !(*this > day1);
+ }
+
+ bool operator>=(Data& day1)
+ {
+  return !(*this < day1);
+ }
+};
+
+int main()
+{
+ Data day1(7, 8, 2010);
+ Data day2(5, 6, 2000);
+
+ cout << "Initial day1: ";
+ day1.PrintInfo();
+
+ cout << "Initial day2: ";
+ day2.PrintInfo();
+
+ cout << "\nDifference (day1 - day2): " << (day1 - day2) << " days" << endl;
+
+ cout << "\nAfter prefix ++day1: ";
+ ++day1;
+ day1.PrintInfo();
+
+ cout << "\nAdding 10 days to day2 (day2 += 10): ";
+ day2 += 10;
+ day2.PrintInfo();
+
+ if (day1 > day2) {
+  cout << "\nday1 is later than day2" << endl;
+ }
+ else {
+  cout << "\nday1 is not later than day2" << endl;
+ }
+
+ return 0;
+}
