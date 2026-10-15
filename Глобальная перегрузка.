@@ -1,0 +1,141 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student
+{
+private:
+    string name;
+    int age;
+    int year;
+
+public:
+    
+    Student(){}
+
+    
+    Student(string n, int a, int y)
+    {
+        name = n;
+        age = a;
+        year = y;
+    }
+
+    
+    void input()
+    {
+        cout << "Enter name: ";
+        cin >> name;
+
+        cout << "Enter age: ";
+        cin >> age;
+
+        cout << "Enter year of study: ";
+        cin >> year;
+    }
+
+    
+    void print()
+    {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Year of study: " << year << endl;
+    }
+
+    
+
+    string getName()
+    {
+        return name;
+    }
+
+    int getAge()
+    {
+        return age;
+    }
+
+    int getYear()
+    {
+        return year;
+    }
+
+    void setName(string n)
+    {
+        name = n;
+    }
+
+    void setAge(int a)
+    {
+        age = a;
+    }
+
+    void setYear(int y)
+    {
+        year = y;
+    }
+};
+
+
+Student operator++(Student& obj, int)
+{
+    Student temp = obj;
+
+    obj.setYear(obj.getYear() + 1);
+
+    return temp;
+}
+
+
+Student& operator--(Student& obj)
+{
+    obj.setYear(obj.getYear() - 1);
+
+    return obj;
+}
+
+
+Student& operator+=(Student& obj, int number)
+{
+    obj.setAge(obj.getAge() + number);
+
+    return obj;
+}
+
+
+
+Student& operator-=(Student& obj, int number)
+{
+    obj.setAge(obj.getAge() - number);
+
+    return obj;
+}
+
+
+int main()
+{
+    Student obj1("Anna", 17, 1);
+
+    cout << "Student:" << endl;
+    obj1.print();
+
+
+    cout << "\nobj1++" << endl;
+    obj1++;
+    obj1.print();
+
+
+    cout << "\n--obj1" << endl;
+    --obj1;
+    obj1.print();
+
+
+    cout << "\nobj1 += 2" << endl;
+    obj1 += 2;
+    obj1.print();
+
+
+    cout << "\nobj1 -= 2" << endl;
+    obj1 -= 2;
+    obj1.print();
+
+}
