@@ -4,16 +4,12 @@ using namespace std;
 
 class Student
 {
-private:
     string name;
     int age;
     int year;
 
 public:
-    
-    Student(){}
-
-    
+    Student() {}
     Student(string n, int a, int y)
     {
         name = n;
@@ -21,20 +17,20 @@ public:
         year = y;
     }
 
-    
-    void input()
-    {
-        cout << "Enter name: ";
-        cin >> name;
 
-        cout << "Enter age: ";
-        cin >> age;
+    //void input()
+    //{
+    //    cout << "Enter name: ";
+    //    cin >> name;
 
-        cout << "Enter year of study: ";
-        cin >> year;
-    }
+    //    cout << "Enter age: ";
+    //    cin >> age;
 
-    
+    //    cout << "Enter year of study: ";
+    //    cin >> year;
+    //}
+
+
     void print()
     {
         cout << "Name: " << name << endl;
@@ -42,7 +38,7 @@ public:
         cout << "Year of study: " << year << endl;
     }
 
-    
+
 
     string getName()
     {
@@ -110,6 +106,28 @@ Student& operator-=(Student& obj, int number)
     return obj;
 }
 
+ostream& operator<<(ostream& out, Student& obj)
+{
+	out << "Name: " << obj.getName() << endl;
+	out << "Age: " << obj.getAge() << endl;
+	out << "Year of study: " << obj.getYear() << endl;
+	return out;
+}
+istream& operator>>(istream& in, Student& obj)
+{
+	string name;
+	int age, year;
+	cout << "Enter name: ";
+	in >> name;
+	obj.setName(name);
+	cout << "Enter age: ";
+	in >> age;
+	obj.setAge(age);
+	cout << "Enter year of study: ";
+	in >> year;
+	obj.setYear(year);
+	return in;
+}
 
 int main()
 {
@@ -137,5 +155,8 @@ int main()
     cout << "\nobj1 -= 2" << endl;
     obj1 -= 2;
     obj1.print();
+
+	cout << obj1 << endl;
+	cin >> obj1;
 
 }
