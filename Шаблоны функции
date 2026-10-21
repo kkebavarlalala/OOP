@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+// перегруженные функции для инициализации массивов
+
+void Init(int mas[], int size)
+{
+	for (int i = 0;i < size;i++)
+	{
+		mas[i] = rand() % 41 - 20;// -20 +20
+	}
+}
+void Init(double mas[], int size)
+{
+	for (int i = 0;i < size;i++)
+	{
+		mas[i] = rand() % 100 * 1.6;
+	}
+}
+void Init(char mas[], int size)
+{
+	for (int i = 0;i < size;i++)
+	{
+		mas[i] = rand() % 30 + 65; // буквы
+	}
+}
+template<class T>
+void Print(T mas[], int size)
+{
+	for (int i = 0;i < size;i++)
+	{
+		cout << mas[i] << "|";
+	}
+	cout << endl;
+}
+
+template<class T>
+int Min_return(T mas[], int size)
+{
+	int min_re = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i] < mas[min_re])
+		{
+			min_re = i;
+		}
+	}
+	return min_re;
+}
+
+template<class T>
+T Min_elem(T mas[], int size)
+{
+	T min_val = mas[0];
+	for (int i = 1; i < size; i++)
+	{
+		if (mas[i] < min_val) min_val = mas[i];
+	}
+	return min_val;
+}
+
+
+template<class T>
+T Sum_elem(T mas[], int size)
+{
+	T sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		sum += mas[i];
+	}
+	return sum;
+}
+
+template<class T>
+int Count_plus(T mas[], int size)
+{
+	int count = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i] > 0)
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
+/*Написать следующие шаблоны функции:
+  1. Функция принимает массив и размер массива, возвращает индекс минимального элемента массива
+  2. Функция принимает массив и размер массива, возвращает значение минимального элемента массива
+  3. Функция принимает массив и размер массива,возвращает сумму всех элементов массива
+  4. Функция принимает массив и размер массива, возвращает количество положительных элементов массива.
+*/
+int main()
+{
+	srand(time(0));
+
+	int arr[5];
+	Init(arr, 5);
+
+	cout << "Array: ";
+	Print(arr, 5);
+
+	cout << "Min index: " << Min_return(arr, 5) << endl;
+	cout << "Min value: " << Min_elem(arr, 5) << endl;
+	cout << "Sum: " << Sum_elem(arr, 5) << endl;
+	cout << "Positive count: " << Count_plus(arr, 5) << endl;
+
+	return 0;
+
+
+
+
+}
