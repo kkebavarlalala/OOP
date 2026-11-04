@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Animal
+{
+protected:
+    string species;
+    double weight;
+    string color;
+    string food;
+
+public:
+    Animal() {}
+    Animal(string sp, double wg, string col, string fd)
+    {
+        species = sp;
+        weight = wg;
+        color = col;
+        food = fd;
+    }
+    
+    void Print()
+    {
+        cout << "Species " << species << endl 
+             << "Weight " << weight << endl 
+             << "Color " << color << endl 
+             << "Food " << food << endl;
+    }
+};
+
+class Cat : public Animal
+{
+    string name;
+    string type;
+    bool isLazy;
+
+public:
+    Cat() {}
+    
+    Cat(string sp, double wg, string col, string fd, string nm, string tp, bool lazy) 
+        : Animal(sp, wg, col, fd)
+    {
+        name = nm;
+        type = tp;
+        isLazy = lazy;
+    }
+
+    void Print() {
+        Animal::Print();
+        cout << "Name: " << name << endl
+             << "Breed/Type: " << type << endl
+             << "Is Lazy: " << (isLazy ? "Yes" : "No") << endl;
+    }
+};
+
+class Dog : public Animal
+{
+private:
+    string name;
+    string role;
+    bool canBarkLoud;
+
+public:
+    Dog() {}
+    Dog(string sp, double wg, string col, string fd, string nm, string rl, bool bark) 
+        : Animal(sp, wg, col, fd)
+    {
+        name = nm;
+        role = rl;
+        canBarkLoud = bark;
+    }
+
+    void Print()
+    {
+        Animal::Print();
+        cout << "Name: " << name << endl
+             << "Role: " << role << endl
+             << "Barks loudly: " << (canBarkLoud ? "Yes" : "No") << endl;
+    }
+};
+
+int main()
+{
+    Cat myCat("Feline", 4.5, "Ginger", "Whiskas", "Barsik", "Persian", true);
+    myCat.Print();
+
+    Dog myDog("Canine", 25.0, "Black", "Meat", "Rex", "Guard Dog", true);
+    myDog.Print();
+
+}
