@@ -1,0 +1,149 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Vehicle
+{
+protected:
+    string model;
+    int year;
+    string color;
+    double price;
+    double speed;
+
+public:
+    Vehicle() {}
+
+    Vehicle(string m, string c, int y, double p, double s)
+    {
+        model = m;
+        color = c;
+        year = y;
+        price = p;
+        speed = s;
+    }
+
+    void Print()
+    {
+        cout << "Model: " << model << endl;
+        cout << "Color: " << color << endl;
+        cout << "Year: " << year << endl;
+        cout << "Price: " << price << endl;
+        cout << "Speed: " << speed << endl;
+    }
+
+    void Init()
+    {
+        cout << "Enter model: ";
+        cin >> model;
+        cout << "Enter color: ";
+        cin >> color;
+        cout << "Enter year: ";
+        cin >> year;
+        cout << "Enter price: ";
+        cin >> price;
+        cout << "Enter max speed: ";
+        cin >> speed;
+    }
+};
+
+class TwoWheeler : public Vehicle
+{
+    int wheels;
+    bool hasEngine;
+
+public:
+    TwoWheeler()
+    {
+        wheels = 2;
+        hasEngine = false;
+    }
+    TwoWheeler(string m, string c, int y, double p, double s, bool engine) : Vehicle(m, c, y, p, s)
+    {
+        wheels = 2;
+        hasEngine = engine;
+    }
+    void Print()
+    {
+        Vehicle::Print();
+        cout << "Wheels: " << wheels << endl;
+        cout << "Has Engine: " << hasEngine << endl;
+    }
+    void Init(string m, string c, int y, double p, double s, bool engine)
+    {
+        model = m;
+        color = c;
+        year = y;
+        price = p;
+        speed = s;
+        wheels = 2;
+        hasEngine = engine;
+    }
+};
+
+class Scooter : public TwoWheeler
+{
+    double engineVolume;
+
+public:
+    Scooter() {}
+
+    Scooter(string m, string c, int y, double p, double s, double volume) : TwoWheeler(m, c, y, p, s, true)
+    {
+        engineVolume = volume;
+    }
+
+    void Horn()
+    {
+        cout << "Beep beep!" << endl;
+    }
+    void Print()
+    {
+        TwoWheeler::Print();
+        cout << "Engine Volume: " << engineVolume << " cc" << endl << endl;
+    }
+    void Init(string m, string c, int y, double p, double s, double volume)
+    {
+        TwoWheeler::Init(m, c, y, p, s, true);
+        engineVolume = volume;
+    }
+};
+
+class Bicycle : public TwoWheeler
+{
+    int gearsCount;
+
+public:
+    Bicycle() {}
+    Bicycle(string m, string c, int y, double p, double s, int gears) : TwoWheeler(m, c, y, p, s, false)
+    {
+        gearsCount = gears;
+    }
+    void RingBell()
+    {
+        cout << "Ring ring!" << endl;
+    }
+    void Print()
+    {
+        TwoWheeler::Print();
+        cout << "Gears: " << gearsCount << endl << endl;
+    }
+    void Init(string m, string c, int y, double p, double s, int gears)
+    {
+        TwoWheeler::Init(m, c, y, p, s, false);
+        gearsCount = gears;
+    }
+};
+
+int main()
+{
+    Scooter scooter;
+    scooter.Init("Yamaha", "Red", 2022, 2500, 90, 150);
+    scooter.Print();
+    scooter.Horn();
+
+    Bicycle bicycle("Trek", "Blue", 2023, 600, 35, 21);
+    bicycle.Print();
+    bicycle.RingBell();
+
+}
