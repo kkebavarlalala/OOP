@@ -1,0 +1,302 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CPU {
+private:
+    string model;
+    double frequency;
+public:
+    CPU(string model = "Unknown", double frequency = 0.0)
+    {
+        this->model = model;
+        this->frequency = frequency;
+    }
+
+    string getModel()
+    {
+        return model;
+    }
+    void setModel(const string& m)
+    {
+        model = m;
+    }
+
+    double getFrequency()
+    {
+        return frequency;
+    }
+    void setFrequency(double f)
+    {
+        frequency = f;
+    }
+
+    void Print() const
+    {
+        cout << "CPU: " << model << " (" << frequency << " GHz)" << endl;
+    }
+};
+
+class SSD {
+private:
+    string brand;
+    int capacity;
+public:
+    SSD(string brand = "Unknown", int capacity = 0)
+    {
+        this->brand = brand;
+        this->capacity = capacity;
+    }
+
+    string getBrand()
+    {
+        return brand;
+    }
+    void setBrand(const string& b)
+    {
+        brand = b;
+    }
+
+    int getCapacity()
+    {
+        return capacity;
+    }
+    void setCapacity(int c)
+    {
+        capacity = c;
+    }
+
+    void Print() const
+    {
+        cout << "SSD: " << brand << " (" << capacity << " GB)" << endl;
+    }
+};
+
+class RAM {
+private:
+    string type;
+    int size;
+public:
+    RAM(string type = "DDR4", int size = 0)
+    {
+        this->type = type;
+        this->size = size;
+    }
+
+    string getType()
+    {
+        return type;
+    }
+    void setType(const string& t)
+    {
+        type = t;
+    }
+
+    int getSize()
+    {
+        return size;
+    }
+    void setSize(int s)
+    {
+        size = s;
+    }
+
+    void Print()
+    {
+        cout << "RAM: " << size << " GB (" << type << ")" << endl;
+    }
+};
+
+class Mouse {
+private:
+    string brand;
+    bool isWireless;
+public:
+    Mouse(string brand = "Generic", bool isWireless = false)
+    {
+        this->brand = brand;
+        this->isWireless = isWireless;
+    }
+
+    string getBrand()
+    {
+        return brand;
+    }
+    void setBrand(const string& b)
+    {
+        brand = b;
+    }
+
+    bool getIsWireless()
+    {
+        return isWireless;
+    }
+    void setIsWireless(bool w)
+    {
+        isWireless = w;
+    }
+
+    void Print()
+    {
+        cout << "Mouse: " << brand << (isWireless ? " (Wireless)" : " (Wired)") << endl;
+    }
+};
+
+class Keyboard {
+private:
+    string brand;
+    bool hasBacklight;
+public:
+    Keyboard(string brand = "Generic", bool hasBacklight = false)
+    {
+        this->brand = brand;
+        this->hasBacklight = hasBacklight;
+    }
+
+    string getBrand()
+    {
+        return brand;
+    }
+    void setBrand(const string& b)
+    {
+        brand = b;
+    }
+
+    bool getHasBacklight()
+    {
+        return hasBacklight;
+    }
+    void setHasBacklight(bool hb)
+    {
+        hasBacklight = hb;
+    }
+
+    void Print()
+    {
+        cout << "Keyboard: " << brand << (hasBacklight ? " (Backlit)" : " (No backlight)") << endl;
+    }
+};
+
+class Laptop {
+private:
+    string model;
+    double price;
+
+    CPU cpu;
+    SSD ssd;
+    RAM ram;
+
+    Mouse* mouse;
+    Keyboard* keyboard;
+
+public:
+    Laptop(string model, double price,
+        string cpuModel, double cpuFreq,
+        string ssdBrand, int ssdCap,
+        string ramType, int ramSize,
+        Mouse* mouse = nullptr, Keyboard* keyboard = nullptr)
+    {
+        this->model = model;
+        this->price = price;
+        this->cpu = CPU(cpuModel, cpuFreq);
+        this->ssd = SSD(ssdBrand, ssdCap);
+        this->ram = RAM(ramType, ramSize);
+        this->mouse = mouse;
+        this->keyboard = keyboard;
+    }
+
+    string getModel()
+    {
+        return model;
+    }
+    void setModel(const string& m)
+    {
+        model = m;
+    }
+
+    double getPrice()
+    {
+        return price;
+    }
+    void setPrice(double p)
+    {
+        price = p;
+    }
+
+    CPU& getCPU()
+    {
+        return cpu;
+    }
+    SSD& getSSD()
+    {
+        return ssd;
+    }
+    RAM& getRAM()
+    {
+        return ram;
+    }
+
+    void SetMouse(Mouse* m)
+    {
+        mouse = m;
+    }
+    Mouse* getMouse()
+    {
+        return mouse;
+    }
+
+    void SetKeb(Keyboard* k)
+    {
+        keyboard = k;
+    }
+    Keyboard* getKeb()
+    {
+        return keyboard;
+    }
+
+    void Print()
+    {
+        cout << "Laptop: " << model << " | Price : $" << price << endl;
+        cpu.Print();
+        ssd.Print();
+        ram.Print();
+
+        if (mouse != nullptr)
+        {
+            mouse->Print();
+        }
+        else
+        {
+            cout << "Mouse: Not connected" << endl;
+        }
+
+        if (keyboard != nullptr)
+        {
+            keyboard->Print();
+        }
+        else
+        {
+            cout << "Keyboard: Not connected" << endl;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Mouse logitech("Logitech MX Master 3", true);
+    Keyboard keychron("Keychron K2", true);
+
+    Laptop myLaptop("ASUS ROG Zephyrus", 1850.0,
+        "AMD Ryzen 9", 4.9,
+        "Samsung 980 Pro", 1024,
+        "DDR5", 32);
+
+    myLaptop.Print();
+
+    myLaptop.SetMouse(&logitech);
+    myLaptop.SetKeb(&keychron);
+
+    cout << "\nAfter conection:\n";
+    myLaptop.Print();
+
+}
