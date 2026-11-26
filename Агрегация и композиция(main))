@@ -1,0 +1,25 @@
+#include "library.h"
+#include <iostream>
+using namespace std;
+
+
+int main()
+{
+	Transport obj1("Audi A5", new ElectricEngine("Model"), new Robot(1));
+	obj1.Print();
+
+	obj1.SetEngine(new CombustionEngine("model1"));
+	obj1.Print();
+
+	Transport obj2("Kamaz ", new CombustionEngine("Model 5"), new Human("Ivan", 45));
+	obj2.Print();
+
+	Diesel_engine* d = new Diesel_engine("Model 6");
+	Transport obj3("Kamaz ", d, new Human("Ivan", 45));
+	obj3.Print();
+
+
+	obj2.SetDriver(new Robot(2));
+	obj2.Print();
+
+}
