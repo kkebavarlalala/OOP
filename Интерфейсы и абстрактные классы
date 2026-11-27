@@ -1,0 +1,192 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Herbivore
+{
+protected:
+    int weight;
+    bool life;
+public:
+    Herbivore(int w) : weight(w), life(true) {}
+    virtual ~Herbivore() {}
+
+    virtual void EatGrass() = 0;
+
+    int GetWeight() { return weight; }
+    bool IsAlive() { return life; }
+    void SetLife(bool l) { life = l; }
+};
+
+class Carnivore
+{
+protected:
+    int power;
+
+public:
+    Carnivore(int p) : power(p) {}
+    virtual ~Carnivore() {}
+    virtual void Eat(Herbivore* herbivore) = 0;
+
+    int GetPower() { return power; }
+};
+
+//africa
+class Wildebeest : public Herbivore
+{
+public:
+    Wildebeest() : Herbivore(70) {}
+
+    void EatGrass() override {
+        weight += 10;
+        cout << "The wildebeest ate some grass. Weight: " << weight << endl;
+    }
+};
+
+
+class Lion : public Carnivore
+{
+public:
+    Lion() : Carnivore(80) {}
+
+    void Eat(Herbivore* herbivore) override {
+        if (!herbivore->IsAlive()) {
+            cout << "The antelope is already dead." << endl;
+            return;
+        }
+
+        if (power > herbivore->GetWeight()) {
+            power += 10;
+            herbivore->SetLife(false);
+            cout << "A lion ate an antelope! The lion's strength: " << power << endl;
+        }
+        else {
+            power -= 10;
+            cout << "The lion couldn’t handle it. The lion’s strength: " << power << endl;
+        }
+    }
+};
+
+//america
+class Bison : public Herbivore
+{
+public:
+    Bison() : Herbivore(67) {}
+
+    void EatGrass() override
+    {
+        weight += 6;
+        cout << "The bison ate some grass. Weight: " << weight << endl;
+    }
+};
+
+class Wolf : public Carnivore {
+public:
+    Wolf() : Carnivore(52) {}
+
+    void Eat(Herbivore* herbivore) override 
+   {
+        if (!herbivore->IsAlive()) {
+            cout << "Bison is already dead." << endl;
+            return;
+        }
+
+        if (power > herbivore->GetWeight()) {
+            power += 10;
+            herbivore->SetLife(false);
+            cout << "A wolf ate a bison! The power of the wolf: " << power << endl;
+        }
+        else {
+            power -= 10;
+            cout << "The wolf was no match for the bison. The wolf’s strength: " << power << endl;
+        }
+    }
+};
+
+
+
+class Continent
+{
+public:
+    virtual ~Continent() {}
+    virtual Herbivore* CreateHerbivore() = 0;
+    virtual Carnivore* CreateCarnivore() = 0;
+};
+
+
+class Africa : public Continent
+{
+public:
+    Herbivore* CreateHerbivore()
+    {
+        return new Wildebeest();
+    }
+    Carnivore* CreateCarnivore()
+    {
+        return new Lion();
+    }
+};
+
+class NorthAmerica : public Continent
+{
+public:
+    Herbivore* CreateHerbivore()
+    {
+        return new Bison();
+    }
+    Carnivore* CreateCarnivore()
+    {
+        return new Wolf();
+    }
+};
+
+//animal world
+
+class AnimalWorld {
+private:
+    Herbivore* herbivore;
+    Carnivore* carnivore;
+
+public:
+    AnimalWorld(Continent* continent)
+    {
+        herbivore = continent->CreateHerbivore();
+        carnivore = continent->CreateCarnivore();
+    }
+
+    ~AnimalWorld()
+    {
+        delete herbivore;
+        delete carnivore;
+    }
+
+    void MealsHerbivores()
+    {
+        herbivore->EatGrass();
+    }
+
+    void NutritionCarnivores()
+    {
+        carnivore->Eat(herbivore);
+    }
+};
+
+int main()
+{
+    cout << "Africa" << endl;
+    Continent* africa = new Africa();
+    AnimalWorld* world1 = new AnimalWorld(africa);
+    world1->MealsHerbivores();
+    world1->NutritionCarnivores();
+    delete world1;
+    delete africa;
+
+    cout << "America" << endl;
+    Continent* america = new NorthAmerica();
+    AnimalWorld* world2 = new AnimalWorld(america);
+    world2->MealsHerbivores();
+    world2->NutritionCarnivores();
+    delete world2;
+    delete america;
+}
